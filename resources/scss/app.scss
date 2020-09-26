@@ -47,3 +47,16 @@ section.hero {
     border-color: $pure;
   }
 }
+
+.call-to-action {
+  background: $primary;
+  color: $pure;
+  transition: $smooth;
+  border: 2px solid $primary;
+
+  &:hover {
+    border-color: $primary;
+    background: $pure;
+    color: $primary;
+  }
+}

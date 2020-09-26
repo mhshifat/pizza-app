@@ -40,3 +40,16 @@ section.hero {
   border-color: #ffffff;
 }
 
+.call-to-action {
+  background: #fe5f1e;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #fe5f1e;
+}
+
+.call-to-action:hover {
+  border-color: #fe5f1e;
+  background: #ffffff;
+  color: #fe5f1e;
+}
+
