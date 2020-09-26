@@ -9,6 +9,8 @@ const PORT = process.env.PORT || "5000";
 app.set(expressEjsLayouts);
 app.set("views", path.join(__dirname, "./resources/views"));
 app.set("view engine", "ejs");
+// Assets...
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.render("home");
