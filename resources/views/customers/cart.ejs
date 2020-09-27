@@ -1,35 +1,36 @@
 <section class="cart py-16">
+  <% if (session.cart) { %>
   <div class="order container mx-auto w-1/2">
     <div class="flex items-center border-b border-gray-300 pb-4">
       <img src="/images/cart-black.png" alt="cart" />
       <h1 class="font-bold ml-4 text-2xl">Order summary</h1>
     </div>
     <div class="pizza-list">
+      <% for (const cartItem of Object.values(session.cart.items)) { %>
       <div class="flex items-center my-8">
-        <img class="w-24" src="/images/pizza.png" alt="pizza" />
+        <img
+          class="w-24"
+          src="/images/<%= cartItem.item.image %>"
+          alt="pizza"
+        />
         <div class="ml-4 flex-1">
-          <h1>Marinara</h1>
-          <span>MEDIUM</span>
+          <h1><%= cartItem.item.name %></h1>
+          <span><%= cartItem.item.size %></span>
         </div>
-        <span class="flex-1">1 Pcs</span>
-        <span class="font-bold text-lg">$300</span>
+        <span class="flex-1"><%= cartItem.qty %> Pcs</span>
+        <span class="font-bold text-lg"
+          >₹<%= cartItem.item.price * cartItem.qty %></span
+        >
       </div>
-
-      <div class="flex items-center my-8">
-        <img class="w-24" src="/images/pizza.png" alt="pizza" />
-        <div class="ml-4 flex-1">
-          <h1>Marinara</h1>
-          <span>MEDIUM</span>
-        </div>
-        <span class="flex-1">1 Pcs</span>
-        <span class="font-bold text-lg">$300</span>
-      </div>
+      <% } %>
     </div>
     <hr />
     <div class="text-right py-4">
       <div>
         <span class="text-lg font-bold">Total Amount:</span>
-        <span class="amount text-2xl font-bold ml-2">$300</span>
+        <span class="amount text-2xl font-bold ml-2"
+          >₹<%= session.cart.totalPrice %></span
+        >
       </div>
 
       <div>
@@ -64,7 +65,8 @@
       >
     </div>
   </div>
-  <!-- <div class="empty-cart py-16">
+  <% } else { %>
+  <div class="empty-cart py-16">
     <div class="container mx-auto text-center">
       <h1 class="text-3xl font-bold mb-2">Cart Empty 😕</h1>
       <p class="text-gray-500 text-lg mb-12">
@@ -82,5 +84,6 @@
         >Go back</a
       >
     </div>
-  </div> -->
+  </div>
+  <% } %>
 </section>
