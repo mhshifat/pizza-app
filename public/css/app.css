@@ -40,16 +40,41 @@ section.hero {
   border-color: #ffffff;
 }
 
-.call-to-action {
+.btn-primary {
   background: #fe5f1e;
   color: #ffffff;
   transition: all 0.3s ease-in-out;
   border: 2px solid #fe5f1e;
 }
 
-.call-to-action:hover {
-  border-color: #fe5f1e;
-  background: #ffffff;
+.btn-primary:hover {
+  border-color: #b23301;
+  background: #b23301;
+}
+
+.footer {
+  background: #f8f8f8;
+}
+
+section.cart {
+  background: #f8f8f8;
+  min-height: calc(100vh - 86px);
+}
+
+section.cart .amount {
   color: #fe5f1e;
+}
+
+section.login {
+  background: #f8f8f8;
+  min-height: calc(100vh - 86px);
+}
+
+section.login a {
+  color: #fe5f1e;
+}
+
+section.login a:hover {
+  color: #b23301;
 }
 

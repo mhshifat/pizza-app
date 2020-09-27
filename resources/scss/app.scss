@@ -48,15 +48,40 @@ section.hero {
   }
 }
 
-.call-to-action {
+.btn-primary {
   background: $primary;
   color: $pure;
   transition: $smooth;
   border: 2px solid $primary;
 
   &:hover {
-    border-color: $primary;
-    background: $pure;
+    border-color: $primary-hover;
+    background: $primary-hover;
+  }
+}
+
+.footer {
+  background: $secondary;
+}
+
+section.cart {
+  background: $secondary;
+  min-height: calc(100vh - 86px);
+
+  & .amount {
     color: $primary;
+  }
+}
+
+section.login {
+  background: $secondary;
+  min-height: calc(100vh - 86px);
+
+  & a {
+    color: $primary;
+
+    &:hover {
+      color: $primary-hover;
+    }
   }
 }
