@@ -26,13 +26,29 @@ module.exports = () => {
           phone,
           address,
         });
-        await newOrder.save();
+        const order = await newOrder.save();
         req.flash("success", "Order placed successfully");
         delete req.session.cart;
+        const eventEmitter = req.app.get("eventEmitter");
+        OrderModel.populate(order, { path: "customerId" }, (err, result) => {
+          eventEmitter.emit("orderPlaced", result);
+        });
         return res.redirect("/customer/orders");
       } catch (err) {
         req.flash("error", "Something went wrong, please try again later");
         return res.redirect("/cart");
+      }
+    },
+    async show(req, res) {
+      try {
+        if (req.params.id === "favicon.ico") delete req.params.id;
+        const order = await OrderModel.findById(req.params.id);
+        if (String(req.user._id) === String(order.customerId)) {
+          return res.render("customers/order", { order });
+        }
+        return res.redirect("/");
+      } catch (err) {
+        return res.redirect("/");
       }
     },
   };

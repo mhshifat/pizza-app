@@ -6,6 +6,7 @@ const session = require("express-session");
 const flash = require("express-flash");
 const expressLayouts = require("express-ejs-layouts");
 const passport = require("passport");
+const Emitter = require("events");
 const MongoStore = require("connect-mongo")(session);
 const initRoutes = require("./routes/web");
 const initPassport = require("./app/config/passport");
@@ -33,6 +34,7 @@ const mongoStore = new MongoStore({
   mongooseConnection: connection,
   collection: "sessions",
 });
+const eventEmitter = new Emitter();
 
 app.use(
   session({
@@ -61,12 +63,29 @@ app.use((req, res, next) => {
 // Set Template Engine...
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./resources/views"));
-
+app.set("eventEmitter", eventEmitter);
 // Routes
 initRoutes(app);
 // Passport
 initPassport(passport);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
+});
+
+const io = require("socket.io")(server);
+
+io.on("connection", (socket) => {
+  console.log(socket.id);
+  socket.on("join", (orderId) => {
+    socket.join(orderId);
+  });
+});
+
+eventEmitter.on("orderUpdated", (data) => {
+  io.to(`order_${data.id}`).emit("orderUpdated", data);
+});
+
+eventEmitter.on("orderPlaced", (data) => {
+  io.to("adminRoom").emit("orderPlaced", data);
 });

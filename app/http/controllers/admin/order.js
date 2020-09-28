@@ -1,6 +1,5 @@
 const OrderModel = require("../../../models/order");
 const moment = require("moment");
-const order = require("../../../models/order");
 
 module.exports = () => {
   return {
@@ -22,6 +21,22 @@ module.exports = () => {
         orders,
         moment,
       });
+    },
+    async updateStatus(req, res) {
+      try {
+        await OrderModel.updateOne(
+          { _id: req.body.orderId },
+          { status: req.body.status }
+        );
+        const eventEmitter = req.app.get("eventEmitter");
+        eventEmitter.emit("orderUpdated", {
+          id: req.body.orderId,
+          status: req.body.status,
+        });
+        return res.redirect("/admin/orders");
+      } catch (err) {
+        return res.redirect("/admin/orders");
+      }
     },
   };
 };

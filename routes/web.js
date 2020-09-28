@@ -20,7 +20,13 @@ module.exports = (app) => {
   app.post("/update-cart", cartController().update);
 
   app.get("/customer/orders", authMiddleware, orderController().index);
+  app.get("/customer/orders/:id", authMiddleware, orderController().show);
   app.post("/orders", authMiddleware, orderController().store);
 
   app.get("/admin/orders", adminMiddleware, adminOrderController().orders);
+  app.post(
+    "/admin/order/status",
+    adminMiddleware,
+    adminOrderController().updateStatus
+  );
 };
