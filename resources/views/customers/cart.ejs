@@ -33,36 +33,40 @@
         >
       </div>
 
+      <% if (user) { %>
       <div>
-        <form class="pt-12">
+        <form action="/orders" method="POST" class="pt-12">
           <input
             type="text"
             class="border border-gray-400 p-2 w-1/2 mb-4"
             placeholder="Phone number"
+            name="phone"
           />
 
           <input
             type="text"
             class="border border-gray-400 p-2 w-1/2"
             placeholder="Address"
+            name="address"
           />
 
           <div>
-            <!-- <button
+            <button
               type="submit"
               class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6"
             >
               Order Now
-            </button> -->
+            </button>
           </div>
         </form>
       </div>
-
+      <% } else { %>
       <a
         href="/login"
         class="inline-block cursor-pointer btn-primary px-6 py-2 rounded-full text-white font-bold mt-6"
         >Login to continue.</a
       >
+      <% } %>
     </div>
   </div>
   <% } else { %>

@@ -22,14 +22,18 @@
   </head>
   <body>
     <nav class="container mx-auto flex items-center justify-between py-4">
-      <div>
-        <img src="/images/logo.png" alt="logo" />
-      </div>
+      <a href="/">
+        <div>
+          <img src="/images/logo.png" alt="logo" />
+        </div>
+      </a>
       <div>
         <ul class="flex items-center">
-          <li class="ml-6"><a href="/menu">Menu</a></li>
+          <li class="ml-6"><a href="/">Menu</a></li>
           <li class="ml-6"><a href="/offers">Offers</a></li>
-          <% if (user) { %>
+          <% if (user) { %> <% if (user.role === "customer") { %>
+          <li class="ml-6"><a href="/customer/orders">My Orders</a></li>
+          <% } %>
           <li class="ml-6">
             <form id="logout" action="/logout" method="POST">
               <a onclick="document.getElementById('logout').submit()" href="#"

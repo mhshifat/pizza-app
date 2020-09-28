@@ -1,8 +1,10 @@
 import axios from "axios";
 import Noty from "noty";
+import initAdmin from "./admin";
 
 const addToCartBtns = document.querySelectorAll(".add-to-cart");
 const cartCounter = document.querySelector("#cartCounter");
+const successAlertMsg = document.querySelector("#success-alert");
 
 addToCartBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
@@ -33,3 +35,11 @@ function updateCart(pizza) {
       }).show();
     });
 }
+
+if (successAlertMsg) {
+  setTimeout(() => {
+    successAlertMsg.remove();
+  }, 2000);
+}
+
+initAdmin();

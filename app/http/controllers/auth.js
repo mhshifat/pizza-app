@@ -8,6 +8,12 @@ module.exports = () => {
       res.render("auth/login");
     },
     postLogin(req, res, next) {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        req.flash("error", "All fields are required");
+        req.flash("email", email);
+        return res.redirect("/login");
+      }
       passport.authenticate("local", (err, user, info) => {
         if (err) {
           req.flash("error", info.message);
@@ -22,8 +28,9 @@ module.exports = () => {
             req.flash("error", info.message);
             return next(err);
           }
-
-          return res.redirect("/");
+          const redirectUri =
+            user.role === "admin" ? "/admin/orders" : "/customer/orders";
+          return res.redirect(redirectUri);
         });
       })(req, res, next);
     },
