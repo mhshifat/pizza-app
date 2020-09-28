@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
     "connect-mongo": "^3.2.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
@@ -20,7 +21,9 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.17.1",
     "mongoose": "^5.10.7",
-    "noty": "^3.2.0-beta"
+    "noty": "^3.2.0-beta",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
